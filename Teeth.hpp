@@ -2,6 +2,7 @@
 #define TEETH_HPP
 
 #include <vector>
+#include <iostream>
 
 class Teeth
 {
@@ -12,6 +13,8 @@ class Teeth
         void extend(int);
         int getHeight(int x) {return teeth[x];}
         int getSmallestIndex();
+
+        void print() { for(int i=0;i< teeth.size(); i++) std::cout << teeth[i] << " "; std::cout << std::endl;}
 
     private:
         std::vector<int> teeth;

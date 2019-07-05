@@ -2,10 +2,12 @@
 
 void Teeth::extend(int index)
 {
+    int last = teeth[teeth.size() - 1];
     for(int i = teeth.size(); i > index; i--)
     {
         teeth[i] = teeth[i-1];
     }
+    teeth.push_back(last);
 }
 
 int Teeth::getSmallestIndex()
