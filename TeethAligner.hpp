@@ -9,13 +9,13 @@ class TA
 {
     public:
         TA() = default;
+        TA(Teeth x, Teeth y);
 
-        void align(int, int, Teeth*, Teeth*);
+        void align();
     
     private:
-        std::vector<int> map;
+        std::vector<std::vector<bool>> map;
 
-        int n, m;
         Teeth A, B;
 
 };

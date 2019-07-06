@@ -29,11 +29,11 @@ int main()
     Teeth row2(B);
 
 
-    // TA aligner;
+    TA aligner(row1, row2);
 
     // aligner.align(n, m, &row1, &row2);
 
-   // TODO: print to output file 
+    // TODO: print to output file 
 
     return 0;
 }
