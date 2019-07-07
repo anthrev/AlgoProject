@@ -17,8 +17,13 @@ class Teeth
         int getMin() {return *std::max_element(teeth.begin(), teeth.end());}
         int getMax() {return *std::min_element(teeth.begin(), teeth.end());}
         int getSize() {return teeth.size();}
+        int first() {return teeth[0];}
+        int last() {return teeth[teeth.size()-1];}
 
-        void print() { for(int i=0;i< teeth.size(); i++) std::cout << teeth[i] << " "; std::cout << std::endl;}
+        void push(int x) {teeth.push_back(x);}
+        void pop() {teeth.pop_back();}
+
+        void print() { for(unsigned int i=0;i< teeth.size(); i++) std::cout << teeth[i] << " "; std::cout << std::endl;}
 
     private:
         std::vector<int> teeth;

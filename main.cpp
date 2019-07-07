@@ -31,7 +31,7 @@ int main()
 
     TA aligner(row1, row2);
 
-    // aligner.align(n, m, &row1, &row2);
+    aligner.align();
 
     // TODO: print to output file 
 

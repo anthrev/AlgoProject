@@ -13,6 +13,6 @@ void Teeth::extend(int index)
 int Teeth::getSmallestIndex()
 {
     int min = 0;
-    for(int i = 1; i < teeth.size(); i++) if(teeth[min] > teeth[i]) min = i;
+    for(unsigned int i = 1; i < teeth.size(); i++) if(teeth[min] > teeth[i]) min = i;
     return min;
 }
