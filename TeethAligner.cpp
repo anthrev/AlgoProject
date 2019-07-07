@@ -12,15 +12,19 @@ void TA::align()
     {
         if(A.getSize() > B.getSize())
         {
+            std::cout << "Extending B" << std::endl;
             while(A.getSize() > B.getSize()) B.extend(B.getSmallestIndex());
+            
         }
         else
         {
+            std::cout << "Extending A" << std::endl;
             while(A.getSize() < B.getSize()) A.extend(A.getSmallestIndex());
         }
     }
-
-    std::cout << "Same size" << std::endl;
+    
+    A.print();
+    B.print();
 
     int AxBn = A.getMax() + B.getMin();
     int AnBx = B.getMax() + A.getMin();
@@ -28,7 +32,7 @@ void TA::align()
     int last = A.last() + B.last();
 
     int optH = std::max(std::max(AxBn,AnBx),std::max(first,last));
-    std::cout << "Found optimum height" << std::endl;
+    std::cout << "Found optimum height " << optH << std::endl;
 
 
     std::vector< std::vector<bool> > map (A.getSize(), std::vector<bool>(B.getSize(), false));
@@ -54,7 +58,7 @@ void TA::align()
     newA.push(A.getHeight(X));
     newB.push(B.getHeight(Y));
 
-    std::stack<dir> path;
+    std::stack<int> path;
 
     std::cout << "Entering while loop" << std::endl;
 
@@ -71,7 +75,7 @@ void TA::align()
             Y++;
             newA.push(A.getHeight(X));
             newB.push(B.getHeight(Y));
-            path.push(DIAG);
+            path.push(1);
             
         }
         else if (!map[X+1][Y])
@@ -79,28 +83,29 @@ void TA::align()
             X++;
             newA.push(A.getHeight(X));
             newB.push(B.getHeight(Y));
-            path.push(DOWN);
+            path.push(2);
         }
         else if (!map[X][Y+1])
         {
             Y++;
             newA.push(A.getHeight(X));
             newB.push(B.getHeight(Y));
-            path.push(LEFT);
+            path.push(3);
         }
         else
         {
+            std::cout << "Backtracking" << std::endl;
             map[X][Y] = true;
             switch (path.top())
             {
-            case DIAG:
+            case 1:
                 X--;
                 Y--;
                 break;
-            case DOWN:
+            case 2:
                 X--;
                 break;
-            case LEFT:
+            case 3:
                 Y--;
                 break;
             default:

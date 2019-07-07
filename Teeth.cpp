@@ -3,16 +3,24 @@
 void Teeth::extend(int index)
 {
     int last = teeth[teeth.size() - 1];
+
     for(int i = teeth.size(); i > index; i--)
     {
         teeth[i] = teeth[i-1];
     }
+
     teeth.push_back(last);
 }
 
 int Teeth::getSmallestIndex()
 {
     int min = 0;
-    for(unsigned int i = 1; i < teeth.size(); i++) if(teeth[min] > teeth[i]) min = i;
+
+    for(unsigned int i = 1; i < teeth.size(); i++) 
+    {
+        if(teeth[min] > teeth[i]) min = i;
+    }
+    
+    std::cout << "Min " << min << std:: endl;
     return min;
 }
