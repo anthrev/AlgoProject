@@ -6,38 +6,42 @@
 
 void TA::align()
 {
-    std::cout << "Starting to align" << std::endl;
+    // std::cout << "Starting to align" << std::endl;
 
     if(A.getSize() != B.getSize())
     {
         if(A.getSize() > B.getSize())
         {
-            std::cout << "Extending B" << std::endl;
+            // std::cout << "Extending B" << std::endl;
+
             while(A.getSize() > B.getSize()) B.extend(B.getSmallestIndex());
-            
+
         }
         else
         {
-            std::cout << "Extending A" << std::endl;
+            // std::cout << "Extending A" << std::endl;
+
             while(A.getSize() < B.getSize()) A.extend(A.getSmallestIndex());
         }
     }
+
+    // std::cout << "Test" << std::endl;
     
-    A.print();
-    B.print();
+    // A.print();
+    // B.print();
 
     int AxBn = A.getMax() + B.getMin();
     int AnBx = B.getMax() + A.getMin();
     int first = A.first() + B.first();
     int last = A.last() + B.last();
 
-    int optH = std::max(std::max(AxBn,AnBx),std::max(first,last));
-    std::cout << "Found optimum height " << optH << std::endl;
+    optH = std::max(std::max(AxBn,AnBx),std::max(first,last));
+    // std::cout << "Found optimum height " << optH << std::endl;
 
 
     std::vector< std::vector<bool> > map (A.getSize(), std::vector<bool>(B.getSize(), false));
 
-    std::cout << "Initalized map" << std::endl;
+    // std::cout << "Initalized map" << std::endl;
 
     for( int i = 0; i < A.getSize(); i++)
     {
@@ -46,9 +50,9 @@ void TA::align()
             // std::cout << "i = " << i << " j = " << j << std::endl <<  " A.at(i) = " << A.getHeight(i)
             // << " B.at(i) = " << B.getHeight(j) << std::endl;
             if((A.getHeight(i)+B.getHeight(j)) > optH) map[i][j] = true;
-            std::cout << map[i][j] << " ";
+            // std::cout << map[i][j] << " ";
         }
-        std::cout << std::endl;
+        // std::cout << std::endl;
     }
 
     Teeth newA, newB;
@@ -60,11 +64,11 @@ void TA::align()
 
     std::stack<int> path;
 
-    std::cout << "Entering while loop" << std::endl;
+    // std::cout << "Entering while loop" << std::endl;
 
     while(X != A.getSize()-1 || Y != B.getSize()-1)
     {
-        std::cout << "X = " << X << " Y = " << Y << std::endl;
+        // std::cout << "X = " << X << " Y = " << Y << std::endl;
         
         if(X == A.getSize()-1) X--;
         if(Y == A.getSize()-1) Y--;
@@ -94,7 +98,7 @@ void TA::align()
         }
         else
         {
-            std::cout << "Backtracking" << std::endl;
+            // std::cout << "Backtracking" << std::endl;
             map[X][Y] = true;
             switch (path.top())
             {
@@ -116,13 +120,25 @@ void TA::align()
             newB.pop();
         }
         
-
-        
-        newA.print();
-        newB.print();
-        
+        // newA.print();
+        // newB.print();       
         
     }
 
-    
+    A = newA;
+    B = newB;
+   
+}
+
+void TA::printToFile(std::string fname)
+{
+    std::ofstream ofs;
+    ofs.open(fname);
+
+    ofs << optH << std::endl;
+
+    for(int i = 0; i < A.getSize(); i++)
+    {
+        ofs << A.getHeight(i) << ' ' << B.getHeight(i) << std::endl;
+    }
 }

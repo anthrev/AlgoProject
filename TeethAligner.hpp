@@ -4,6 +4,8 @@
 #include "Teeth.hpp"
 
 #include <vector>
+#include <string>
+#include <fstream>
 
 
 class TA
@@ -14,8 +16,10 @@ class TA
 
         
         void align();
+        void printToFile(std::string);
     
     private:
+        int optH;
         Teeth A, B;
 
 };

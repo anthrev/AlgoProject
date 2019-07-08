@@ -33,7 +33,8 @@ int main()
 
     aligner.align();
 
-    // TODO: print to output file 
+    // TODO: print to output file
+    aligner.printToFile("output.txt"); 
 
     return 0;
 }
