@@ -1,40 +1,27 @@
-#include <fstream>
 #include <iostream>
-#include <vector>
 
-#include "TeethAligner.hpp"
+#include "aligner.hpp"
+#include "header.hpp"
 
-int main()
-{
-    std::ifstream ifs;
-    ifs.open("input.txt");
+int main() {
+    int x = 0;
+    int y = 0;
+    vector<int> B;
+    vector<int> C;
 
-    int n, m, x;
-    ifs >> n >> m;
+    read_file("input.txt", B, C, x, y);
 
-    std::vector<int> A, B;
+    Aligner A(B, C, x, y);
 
-    for(int i = 0; i < n; i++)
-    {
-        ifs >> x;
-        A.push_back(x);
-    }
-
-    for(int i = 0; i < m; i++)
-    {
-        ifs >> x;
-        B.push_back(x);
-    }
-    Teeth row1(A);
-    Teeth row2(B);
-
-
-    TA aligner(row1, row2);
-
-    aligner.align();
-
-    // TODO: print to output file
-    aligner.printToFile("output.txt"); 
-
-    return 0;
+    Aligner::Data ans = A.opt_height(B, C);
+    cout << "OPTIMAL HEIGHT: " << ans.height << endl;  // DELETE later
+	cout << "OPTIMAL PATH: " << endl;
+	for(size_t i=0; i< ans.optPathA.size(); i++){
+		cout << ans.optPathA[i] << " ";
+	}
+	cout << endl;
+	for(size_t i=0; i< ans.optPathB.size(); i++){
+		cout << ans.optPathB[i] << " ";
+	}
+    A.print_arr();                              // DELETE later
 }
