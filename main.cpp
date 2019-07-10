@@ -16,12 +16,13 @@ int main() {
     Aligner::Data ans = A.opt_height(B, C);
     cout << "OPTIMAL HEIGHT: " << ans.height << endl;  // DELETE later
 	cout << "OPTIMAL PATH: " << endl;
-	for(size_t i=0; i< ans.optPathA.size(); i++){
+	for(size_t i=ans.optPathA.size() - 1; i> -1; i--){
 		cout << ans.optPathA[i] << " ";
 	}
 	cout << endl;
-	for(size_t i=0; i< ans.optPathB.size(); i++){
+	for(size_t i=ans.optPathB.size() - 1; i> -1; i--){
 		cout << ans.optPathB[i] << " ";
 	}
+	cout << endl;
     A.print_arr();                              // DELETE later
 }

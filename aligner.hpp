@@ -6,7 +6,7 @@ using namespace std;
 
 class Aligner {
 public:
-struct Data {
+	struct Data {
 		vector<int> optPathA;
 		vector<int> optPathB;
 		int height;

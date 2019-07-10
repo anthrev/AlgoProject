@@ -13,13 +13,13 @@ Aligner::Aligner(vector<int> A_in, vector<int> B_in, int x_in, int y_in) {
     arr = temp2;
 }
 
-Data Aligner::opt_height (vector<int> A, vector<int> B) {
+Aligner::Data Aligner::opt_height (vector<int> A, vector<int> B) {
     int i = A.size() - 1;
     int j = B.size() - 1;
 
     // memoized check
     if (arr[i][j].height != -1) {
-        return arr[i][j].height;
+        return arr[i][j];
     }
 
     // base case: each array contains 1 element
@@ -31,14 +31,18 @@ Data Aligner::opt_height (vector<int> A, vector<int> B) {
 
     // base case: first array contains 1 element
     else if (i == 0) {
+		arr[i][j].optPathA = arr[i][j-1].optPathA;
 		arr[i][j].optPathA.push_back(A.at(0));
-		arr[i][j].optPathB.push_back(max_elem(B));
+		arr[i][j].optPathB = arr[i][j-1].optPathB;
+		arr[i][j].optPathB.push_back(B.at(0));
         arr[i][j].height = A.at(0) + max_elem(B);
     }
 
     // base case: second array contains 1 element
     else if (j == 0) {
-		arr[i][j].optPathA.push_back(max_elem(A));
+		arr[i][j].optPathA = arr[i-1][j].optPathA;
+		arr[i][j].optPathA.push_back(A.at(0));
+		arr[i][j].optPathB = arr[i-1][j].optPathB;
 		arr[i][j].optPathB.push_back(B.at(0));
         arr[i][j].height = B.at(0) + max_elem(A);
     }
@@ -57,20 +61,23 @@ Data Aligner::opt_height (vector<int> A, vector<int> B) {
 
         vector<int> temp = {x.height, y.height, z.height};
 		arr[i][j].height = max(w, min_elem(temp));
-		switch(min_elem(temp)){
-		case x.height: 
-		arr[i][j].optPathA = (x.optPathA).push_back(A.at(0));
-		arr[i][j].optPathB = (x.optPathB).push_back(B.at(0));
-		break;
-		case y.height:
-		arr[i][j].optPathA = (y.optPathA).push_back(A.at(0));
-		arr[i][j].optPathB = (y.optPathB).push_back(B.at(0));
-		break;
-		case z.height:
-		arr[i][j].optPathA = (z.optPathA).push_back(A.at(0));
-		arr[i][j].optPathB = (z.optPathB).push_back(B.at(0));
-		break;
+		
+		if(min_elem(temp) == x.height){
+			arr[i][j].optPathA = (x.optPathA);
+			arr[i][j].optPathB = (x.optPathB);
 		}
+		
+		else if(min_elem(temp) == y.height){
+			arr[i][j].optPathA = (y.optPathA);
+			arr[i][j].optPathB = (y.optPathB);
+		}
+		
+		else{
+		arr[i][j].optPathA = (z.optPathA);
+		arr[i][j].optPathB = (z.optPathB);
+		}
+		arr[i][j].optPathA.push_back(A.at(0));
+		arr[i][j].optPathB.push_back(B.at(0));
     }
 
     cout << "[" << i << ", " << j << "] = " << arr[i][j].height << endl;   // DELETE later
@@ -101,10 +108,29 @@ int Aligner::min_elem(vector<int> vec) {
 void Aligner::print_arr() {
     for(size_t i=0; i<arr.size(); i++) {
        for (size_t j=0; j<arr[i].size(); j++)
-       {cout << setw(2) << arr[i][j].height << " ";
+       cout << setw(2) << arr[i][j].height << " ";
        cout << endl;
-	   }
-    }
+	}
+	   
+	for(size_t i=0; i<arr.size(); i++) {
+       for (size_t j=0; j<arr[i].size(); j++){
+		   for(size_t a=0; a < arr[i][j].optPathA.size(); a++){
+				cout << setw(2) << arr[i][j].optPathA[a];
+		   }
+       cout << "|";
+		}
+		cout << endl;
+	}
+	
+	for(size_t i=0; i<arr.size(); i++) {
+       for (size_t j=0; j<arr[i].size(); j++){
+		   for(size_t a=0; a < arr[i][j].optPathB.size(); a++){
+				cout << setw(2) << arr[i][j].optPathB[a];
+		   }
+       cout << "|";
+		}
+		cout << endl;
+	}
 }
 
 void Aligner::print_vec (vector<int> a, vector<int> b) {
