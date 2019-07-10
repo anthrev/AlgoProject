@@ -1,4 +1,5 @@
 #include <iostream>
+#include <algorithm>
 
 #include "aligner.hpp"
 #include "header.hpp"
@@ -13,9 +14,12 @@ int main() {
 
     Aligner A(B, C, x, y);
 
-    Aligner::Data ans = A.opt_height(B, C);
+    Data ans = A.opt_height(A.getA(), A.getB());
     cout << "OPTIMAL HEIGHT: " << ans.height << endl;  // DELETE later
 	cout << "OPTIMAL PATH: " << endl;
+	reverse(ans.optPathA.begin(), ans.optPathA.end());
+	reverse(ans.optPathB.begin(), ans.optPathB.end());
+	
 	for(size_t i=0; i< ans.optPathA.size(); i++){
 		cout << ans.optPathA[i] << " ";
 	}
@@ -23,5 +27,6 @@ int main() {
 	for(size_t i=0; i< ans.optPathB.size(); i++){
 		cout << ans.optPathB[i] << " ";
 	}
+	cout << endl;
     A.print_arr();                              // DELETE later
 }
