@@ -28,4 +28,13 @@ void read_file (string file_name, vector<int> &A, vector<int> &B, int &x, int &y
     }
 }
 
+void write_file (vector<int> &A, vector<int> &B, int &h) {
+    std::ofstream out;
+	out.open("output.txt");
+	out << h << endl;
+	for(size_t i=0; i< A.size(); i++){
+		out << A[i] << " " << B[i] << endl;
+	}
+    out.close();
+}
 #endif /* HEADER_H */

@@ -19,6 +19,7 @@ int main() {
 	cout << "OPTIMAL PATH: " << endl;
 	reverse(ans.optPathA.begin(), ans.optPathA.end());
 	reverse(ans.optPathB.begin(), ans.optPathB.end());
+	write_file(ans.optPathA, ans.optPathB,ans.height);
 	
 	for(size_t i=0; i< ans.optPathA.size(); i++){
 		cout << ans.optPathA[i] << " ";
