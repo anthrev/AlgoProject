@@ -8,11 +8,18 @@
 
 using namespace std;
 
-void read_file (string file_name, vector<int> &A, vector<int> &B, int &x, int &y) {
+void read_file (string file_name, vector<int> &Trash, vector<int> &A, vector<int> &B, int &x, int &y, int &z) {
     int temp;
     std::string line;
     std::ifstream infile(file_name);
-
+	
+	std::getline(infile, line);
+    std::istringstream issTrash(line);
+    while (issTrash >> temp) {
+        Trash.push_back(temp);
+        z++;
+    }
+	
     std::getline(infile, line);
     std::istringstream iss(line);
     while (iss >> temp) {

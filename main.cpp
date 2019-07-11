@@ -7,10 +7,12 @@
 int main() {
     int x = 0;
     int y = 0;
+	int z = 0;
+	vector<int> Trash;
     vector<int> B;
     vector<int> C;
 
-    read_file("input.txt", B, C, x, y);
+    read_file("input.txt", Trash, B, C, x, y, z);
 
     Aligner A(B, C, x, y);
 
